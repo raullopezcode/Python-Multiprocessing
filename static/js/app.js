@@ -1,3 +1,23 @@
+Vue.component('line-chart', {
+    extends: VueChartJs.Line,
+    props: ['labels', 'values', 'title'],
+    mounted() {
+        const data = {
+            labels: Array.from(Array(this.values.length).keys()),
+            datasets: [{
+                label: this.title,
+                data: this.values,
+                fill: false,
+                borderColor: 'rgb(75, 192, 192)',
+                tension: 0.1
+            }]
+        }
+        this.renderChart(data, {
+            responsive: true
+        })
+    }
+})
+
 new Vue({
     el: '#app',
     data: {
@@ -5,6 +25,7 @@ new Vue({
         error: null,
         loading: false,
         tab: null,
+        viewAs: 'chart',
     },
     computed: {
         tabs () {
@@ -23,7 +44,19 @@ new Vue({
                 'ram',
                 'available_memory',
             ]
-        }
+        },
+        durationData () {
+            return  this.results.map(result => result.duration);
+        },
+        cpuData () {
+            return  this.results.map(result => result.duration);
+        },
+        ramData () {
+            return  this.results.map(result => result.duration);
+        },
+        availableMemoryData () {
+            return  this.results.map(result => result.duration);
+        },
     },
     methods: {
         send() {

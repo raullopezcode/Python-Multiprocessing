@@ -1,24 +1,33 @@
 {% raw %}
 <div v-if="results" class="mt-16 overflow-hidden">
-    <nav class="flex space-x-4" aria-label="Tabs">
-        <button
-            v-for="t in tabs"
-            type="button"
-            class=" px-3 py-2 font-medium text-sm rounded-md"
-            :class="{
-                'bg-gray-100 text-gray-700': tab === t,
-                'text-gray-500 hover:text-gray-700': tab !== t,
-            }"
-            :aria-current="tab === t ? 'page' : undefined"
-            @click="tab = t"
-            >
-            {{ tab }}
-        </button>
-    </nav>
+    <div class="flex justify-between">
+        <nav class="flex space-x-4" aria-label="Tabs">
+            <button
+                v-for="t in tabs"
+                type="button"
+                class=" px-3 py-2 font-medium text-sm rounded-md"
+                :class="{
+                    'bg-gray-100 text-gray-700': tab === t,
+                    'text-gray-500 hover:text-gray-700': tab !== t,
+                }"
+                :aria-current="tab === t ? 'page' : undefined"
+                @click="tab = t"
+                >
+                {{ tab }}
+            </button>
+        </nav>
+        <div class="flex space-x-4">
+            <button type="button" class="text-gray-600 hover:text-blue-600" aria-label="View as table" @click="viewAs = 'table'">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M3 14h18m-9-4v8m-7 0h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+            </button>
+            <button type="button" class="text-gray-600 hover:text-blue-600" aria-label="View as charts" @click="viewAs = 'chart'">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 8v8m-4-5v5m-4-2v2m-2 4h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+            </button>
+        </div>
+    </div>
 
-    <!-- This example requires Tailwind CSS v2.0+ -->
-    <div class="flex flex-col mt-16">
-        <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+    <div class="flex flex-col mt-6">
+        <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8" v-if="viewAs === 'table'">
             <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
                 <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
                     <table class="min-w-full divide-y divide-gray-200">
@@ -48,6 +57,12 @@
                     </table>
                 </div>
             </div>
+        </div>
+        <div v-if="viewAs === 'chart'" class="grid grid-cols-2 gap-16">
+            <line-chart :width="400" :height="250" title="Duration" :values="durationData" :labels="[]"></line-chart>
+            <line-chart :width="400" :height="250" title="CPU Usage" :values="cpuData" :labels="[]"></line-chart>
+            <line-chart :width="400" :height="250" title="RAM Usage" :values="ramData" :labels="[]"></line-chart>
+            <line-chart :width="400" :height="250" title="Available Memory" :values="availableMemoryData" :labels="[]"></line-chart>
         </div>
     </div>
 </div>
