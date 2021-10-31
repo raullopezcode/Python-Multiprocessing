@@ -1,6 +1,5 @@
 from runner.RunningMethod import RunningMethod
 import scipy.stats as stats
-import threading
 from concurrent.futures import ThreadPoolExecutor
 
 class Threads(RunningMethod):

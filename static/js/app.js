@@ -1,6 +1,6 @@
 Vue.component('line-chart', {
     extends: VueChartJs.Line,
-    props: ['dataset'],
+    props: ['dataset', 'title'],
     watch: {
         dataset (newVal) {
             this.render()
@@ -17,7 +17,13 @@ Vue.component('line-chart', {
             }
     
             this.renderChart(data, {
-                responsive: true
+                responsive: true,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: this.title
+                    }
+                }
             })
         }
     }

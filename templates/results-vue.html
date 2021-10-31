@@ -59,10 +59,10 @@
             </div>
         </div>
         <div v-if="viewAs === 'chart'" class="grid grid-cols-2 gap-16">
-            <line-chart :width="400" :height="250" :dataset="durationDatasets"></line-chart>
-            <line-chart :width="400" :height="250" :dataset="cpuDatasets"></line-chart>
-            <line-chart :width="400" :height="250" :dataset="ramDatasets"></line-chart>
-            <line-chart :width="400" :height="250" :dataset="availableMemoryDatasets"></line-chart>
+            <line-chart :width="400" :height="250" title="Duration (s)" :dataset="durationDatasets"></line-chart>
+            <line-chart :width="400" :height="250" title="CPU Usage (%)" :dataset="cpuDatasets"></line-chart>
+            <line-chart :width="400" :height="250" title="RAM Usage (%)" :dataset="ramDatasets"></line-chart>
+            <line-chart :width="400" :height="250" title="Available Memory (%)" :dataset="availableMemoryDatasets"></line-chart>
         </div>
     </div>
 </div>
