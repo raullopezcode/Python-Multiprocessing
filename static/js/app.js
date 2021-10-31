@@ -1,20 +1,25 @@
 Vue.component('line-chart', {
     extends: VueChartJs.Line,
-    props: ['labels', 'values', 'title'],
-    mounted() {
-        const data = {
-            labels: Array.from(Array(this.values.length).keys()),
-            datasets: [{
-                label: this.title,
-                data: this.values,
-                fill: false,
-                borderColor: 'rgb(75, 192, 192)',
-                tension: 0.1
-            }]
+    props: ['dataset'],
+    watch: {
+        dataset (newVal) {
+            this.render()
         }
-        this.renderChart(data, {
-            responsive: true
-        })
+    },
+    mounted() {
+        this.render()
+    },
+    methods: {
+        render() {
+            const data = {
+                labels: Array.from(Array(this.dataset[0].data.length).keys()),
+                datasets: this.dataset
+            }
+    
+            this.renderChart(data, {
+                responsive: true
+            })
+        }
     }
 })
 
@@ -25,40 +30,56 @@ new Vue({
         error: null,
         loading: false,
         tab: null,
+        tabs: [],
         viewAs: 'chart',
     },
     computed: {
-        tabs () {
-            return Array.from((new Set(this.results.map(r => r.name))).values());
-        },
         tabResults () {
             return this.results.filter(r => r.name === this.tab);
         },
         tableCols () {
             return [
                 'name',
+                'option',
                 'version',
                 'file',
                 'duration',
                 'cpu_usage',
                 'ram',
                 'available_memory',
-            ]
+            ];
         },
-        durationData () {
-            return  this.results.map(result => result.duration);
+        durationDatasets () {
+            return this.dataset('duration')
         },
-        cpuData () {
-            return  this.results.map(result => result.duration);
+        cpuDatasets () {
+            return this.dataset('cpu_usage')
         },
-        ramData () {
-            return  this.results.map(result => result.duration);
+        ramDatasets () {
+            return this.dataset('ram')
         },
-        availableMemoryData () {
-            return  this.results.map(result => result.duration);
+        availableMemoryDatasets () {
+            return this.dataset('available_memory')
         },
     },
     methods: {
+        dataset(key) {
+            const options = Array.from(new Set(this.tabResults.map(result => result.option)));
+            const datasets = [];
+            let i = 0;
+            for (const option of options) {
+                datasets.push({
+                    label: option,
+                    data: this.tabResults.filter(result => result.option === option).map(item => item[key]),
+                    fill: false,
+                    borderColor: this.getColor(i, options.length),
+                    tension: 0.1
+                });
+                i += 1;
+            }
+
+            return datasets;
+        },
         send() {
             if (this.loading) {
                 return;
@@ -82,6 +103,7 @@ new Vue({
     
                     this.error = null;
                     this.results = data.results;
+                    this.tabs = Array.from((new Set(this.results.map(r => r.name))).values());
                     this.tab = this.tabs[0];
                 })
                 .catch(error => {
@@ -89,6 +111,9 @@ new Vue({
                     console.error(error);
                     alert('Unknown error');
                 });
+        },
+        getColor(i, maxColors) { 
+            return chroma.scale(['#00ddba', '#0a5edf']).colors(maxColors)[i];
         }
     }
 })

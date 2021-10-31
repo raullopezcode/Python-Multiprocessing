@@ -3,11 +3,12 @@ import os, json, time, psutil
 import pandas as pd
 
 class Results:
-    def __init__(self, name: str, file: str, version: int):
+    def __init__(self, name: str, option: str, file: str, version: int):
         self.uuid = uuid4().hex
         self.name = name
         self.data = {
             'name': name,
+            'option': option,
             'file': file,
             'version': version,
             'started_at': time.time()

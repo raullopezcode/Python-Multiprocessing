@@ -24,8 +24,13 @@ def run(id):
     if iterations is None or int(iterations) <= 0:
         return json.dumps({'error': 'Invalid number of iterations'})
     
+    threads = list(map(int, map(str.strip, request.form.get('threads').split(','))))
+    print(threads)
+    min_cores = request.form.get('min_cores', 1)
+    max_cores = request.form.get('max_cores', 10)
+    
     config = ConfigFactory.from_name(id)
-    runner = Runner(os.path.join('datasets', id + '.csv'), int(iterations), config)
+    runner = Runner(os.path.join('datasets', id + '.csv'), int(iterations), config, threads=threads, min_cores=min_cores, max_cores=max_cores)
     runner.run()
     return json.dumps({'success': True, 'results': runner.results})
 
