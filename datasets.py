@@ -4,7 +4,7 @@ FOLDER = 'datasets'
 
 def download_datasets():
     urls = {
-        'breast.csv': 'http://raullgdev.es/code/se_intro/breast.csv',
+        'breast.csv': 'http://raullgdev.es/code/se_intro/breast_cancer_short.csv',
     }
     create_folder_if_needed()
 
