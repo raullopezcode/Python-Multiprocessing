@@ -2,6 +2,9 @@
 
 The main goal is to test how multiprocessing and multithreading can be used in Python, and under which circumstances one may be a better option than the other.
 
+![image](https://user-images.githubusercontent.com/3358390/135909163-fb235928-da84-4e0e-9ae0-50077de0f0b9.png)
+
+
 ## Installation
 
 WIP
