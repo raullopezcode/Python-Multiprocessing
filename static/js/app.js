@@ -18,11 +18,9 @@ Vue.component('line-chart', {
     
             this.renderChart(data, {
                 responsive: true,
-                plugins: {
-                    title: {
-                        display: true,
-                        text: this.title
-                    }
+                title: {
+                    display: true,
+                    text: this.title
                 }
             })
         }
