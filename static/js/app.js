@@ -117,7 +117,7 @@ new Vue({
                 });
         },
         getColor(i, maxColors) { 
-            return chroma.scale(['#00ddba', '#0a5edf']).colors(maxColors)[i];
+            return chroma.scale(['#00ddba', '#0a5edf', '#e84364']).colors(maxColors)[i];
         }
     }
 })
