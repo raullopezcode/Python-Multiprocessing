@@ -18,8 +18,8 @@
                     <div class="flex items-center justify-start">
                         <img src="{{ url_for('static', filename='img/loop.png') }}" alt="Iterations" class="h-16 w-auto">
                         <div class="ml-4">
-                            <label class="flex items-center">
-                                <span class="mr-3 flex-shrink-0 w-24 text-right">Iterations:</span>
+                            <label class="block">
+                                <span class="text-sm text-gray-700">Iterations:</span>
                                 <input type="number" min="1" max="10000" name="iterations" class="block mt-2 w-48 border border-gray-300 rounded px-4 py-2 text-gray-700" value="10">
                             </label>
                         </div>
@@ -27,13 +27,13 @@
 
                     <div class="flex items-center justify-start">
                         <img src="{{ url_for('static', filename='img/microchip.png') }}" alt="CPU Cores" class="h-16 w-auto">
-                        <div class="ml-4">
-                            <label class="flex items-center">
-                                <span class="mr-3 flex-shrink-0 w-24 text-right">Threads (separated by comma):</span>
+                        <div class="ml-4 space-y-4">
+                            <label class="block">
+                                <span class="text-sm text-gray-700">Threads (separated by comma):</span>
                                 <input type="text" required class="block mt-2 w-48 border border-gray-300 rounded px-4 py-2 text-gray-700" name="threads" value="1,2,4,8,16,32,64,128">
                             </label>
-                            <label class="flex items-center">
-                                <span class="mr-3 flex-shrink-0 w-24 text-right">Processes (separated by comma):</span>
+                            <label class="block">
+                                <span class="text-sm text-gray-700">Processes (separated by comma):</span>
                                 <input type="text" required class="block mt-2 w-48 border border-gray-300 rounded px-4 py-2 text-gray-700" name="processes" value="1,2,4,8,16,32">
                             </label>
                         </div>
