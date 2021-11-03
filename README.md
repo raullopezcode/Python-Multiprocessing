@@ -6,8 +6,7 @@ The main goal is to test how multiprocessing and multithreading can be used in P
 
 
 ## Installation
-
-WIP
+Python3.9.7 was used to make this project, although any Python3.7+ version should work. `requirements.txt` is provided to install the dependencies.
 
 ## Execution
 To execute this platform we just need to run the local Flask server by executing the following command:
